@@ -23,7 +23,7 @@ var keyboardKeys = [];
 var keyboardCanvasRoot = Scene.root.child("keyboardCanvas");
 var mainCanvasRoot = Scene.root.child("mainCanvas");
 var message = mainCanvasRoot.child("text");
-var actualMessage = message.text.lastValue;
+var actualMessage = "HELLO";
 var keyClickSound = Scene.root.child("keyboardSound");
 var openKeyboardBTN =  mainCanvasRoot.child("TextBG");
 var openKeyboardBTN2 =  mainCanvasRoot.child("TextBG_2");
@@ -41,11 +41,11 @@ var tapRegistrar = function(selectedKeyboardKey){
 				actualMessage = actualMessage + " ";
 			}else{
 				
-				actualMessage = actualMessage + keyText[selectedKeyboardKey.index].toString();
+				actualMessage = actualMessage + keyText[selectedKeyboardKey.index];
 				
 			}
 			keyClickSound.play();
-			message.text = String(actualMessage);
+			message.text = actualMessage;
 	});
 
 }
@@ -80,7 +80,6 @@ for(var i = 0; i<numberOfKeys; i++){
 		texture: keyboardCanvasRoot.child("key_"+(i+1).toString()),
 		index: i
 	}
-	//D.log(keyboardKeys[i].texture.name.toString());
 	tapRegistrar(keyboardKeys[i]);
 }
 
@@ -89,9 +88,9 @@ var lineFlashEnabled = false;
 Time.ms.interval(500).subscribe(function (elapsedTime) {
 
 	if(lineFlashEnabled){
-		message.text = String(actualMessage) + "l";
+		message.text = actualMessage + "l";
 	}else{
-		message.text = String(actualMessage);
+		message.text = actualMessage;
 	}
 
 	lineFlashEnabled =!lineFlashEnabled;
